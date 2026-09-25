@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPryme DevOps Dashboard</title>
+</head>
+
+<body>
+    <h1>TechPryme DevOps Dashboard</h1>
+
+    <p><strong>Application:</strong> <span id="application">Loading...</span></p>
+    <p><strong>Version:</strong> <span id="version">Loading...</span></p>
+    <p><strong>Environment:</strong> <span id="environment">Loading...</span></p>
+    <p><strong>Status:</strong> <span id="status">Checking...</span></p>
+
+    <script>
+        async function loadDashboard() {
+            try {
+                const infoResponse = await fetch("/api/info");
+                const healthResponse = await fetch("/api/health");
+
+                const info = await infoResponse.json();
+                const health = await healthResponse.json();
+
+                document.getElementById("application").textContent = info.application;
+                document.getElementById("version").textContent = info.version;
+                document.getElementById("environment").textContent = info.environment;
+                document.getElementById("status").textContent = health.status.toUpperCase();
+            } catch (error) {
+                document.getElementById("status").textContent = "OFFLINE";
+                console.error(error);
+            }
+        }
+
+        loadDashboard();
+    </script>
+</body>
+</html>
