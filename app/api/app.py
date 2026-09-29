@@ -5,6 +5,7 @@ import mariadb
 from flask import Flask, jsonify, send_from_directory
 
 app = Flask(__name__)
+APP_ENVIRONMENT = os.getenv("APP_ENVIRONMENT", "development")
 
 DB_HOST = os.getenv("DB_HOST", "db")
 DB_PORT = int(os.getenv("DB_PORT", "3306"))
@@ -91,7 +92,7 @@ def info():
             {
                 "application": row[0],
                 "version": row[1],
-                "environment": row[2],
+                "environment": APP_ENVIRONMENT,
             }
         )
 
