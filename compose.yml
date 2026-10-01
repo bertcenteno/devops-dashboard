@@ -8,11 +8,11 @@ services:
     ports:
       - "5000:5000"
     environment:
-      APP_ENVIRONMENT: sit
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_NAME: devops_dashboard
-      DB_USER: root
+      APP_ENVIRONMENT: ${APP_ENVIRONMENT}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
       DB_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     depends_on:
       db:
@@ -23,7 +23,7 @@ services:
     container_name: devops-dashboard-db
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-      MARIADB_DATABASE: devops_dashboard
+      MARIADB_DATABASE: ${DB_NAME}
 
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
