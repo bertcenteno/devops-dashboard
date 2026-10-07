@@ -5,6 +5,7 @@ services:
       dockerfile: docker/Dockerfile
     image: devops-dashboard:1.0.0
     container_name: devops-dashboard
+    restart: unless-stopped
     ports:
       - "5000:5000"
     environment:
@@ -33,6 +34,7 @@ services:
   db:
     image: mariadb:11.8
     container_name: devops-dashboard-db
+    restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${DB_NAME}
